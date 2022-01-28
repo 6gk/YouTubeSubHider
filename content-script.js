@@ -11,7 +11,7 @@ function start() {
         hideVideos = data.hideVideos;
 
         checkNewSection(hideVideos);
-        
+
         setInterval(() => {
             checkNewSection(hideVideos);
             var sections = document.getElementById("contents");
@@ -42,13 +42,13 @@ function addHideButtons(sectionStart){
 
     for(var c = sectionStart; c < sections.children.length; c++) {
         var items = sections.children[c].querySelector("#items");
-        
-        if(items == null) continue;    
+
+        if(items == null) continue;
 
         for(var i = 0; i < items.children.length; i++){
             var hideButton = document.createElement("button");
             hideButton.textContent = 'x';
-            hideButton.className = "hide-button";        
+            hideButton.className = "hide-button";
             hideButton.onclick = (e) => {
                 var channelName = e.currentTarget.parentNode.textContent;
                 channelName = channelName.substring(1);
@@ -65,6 +65,9 @@ function addHideButtons(sectionStart){
                 }
             };
             var container = items.children[i].querySelector("yt-formatted-string");
+            if (items.children[i].querySelector("yt-formatted-string .hide-button")) {
+                continue
+            }
             container.prepend(hideButton);
         }
     }
@@ -123,7 +126,7 @@ function checkSection(sectionIndex) {
     for (var i = 0; i < items.children.length; i++) {
         if (items.children[i].style.display != "none") {
             videoFound = true;
-            break;   
+            break;
         }
     }
     if (!videoFound) {
